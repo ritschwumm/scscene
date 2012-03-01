@@ -19,7 +19,7 @@ case class ShapeFigure(
 			})
 	
 	final def globalPicked(at:SgPoint):Boolean	= 
-			(clip map { _ globalPicked at } getOrElse true) &&
+			(clip forall { _ globalPicked at }) &&
 			(globalShape contains at.toPoint2D)
 			
 	// TODO private?

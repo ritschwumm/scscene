@@ -17,7 +17,7 @@ case class TextFigure(
 			SgRectangle fromRectangle2D (ShapeUtil inflate (globalShape.getBounds2D, 1))
 	
 	final def globalPicked(at:SgPoint):Boolean	= 
-			(clip map { _ globalPicked at } getOrElse true) &&
+			(clip forall { _ globalPicked at }) &&
 			(globalShape contains at.toPoint2D)
 			
 	private lazy val globalShape:Shape	= {

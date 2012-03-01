@@ -22,10 +22,10 @@ case class SvgFigure(
 			(transform apply (SgRectangle fromRectangle2D svg.getViewRect)).normalize
 	
 	final def globalPicked(at:SgPoint):Boolean	=
-			(clip map { _ globalPicked at } getOrElse true) &&
-			(transform.inverse map { t => 
+			(clip forall { _ globalPicked at }) &&
+			(transform.inverse exists { t => 
 				!(svg pick (t apply at.toPoint2D, new java.util.Vector) isEmpty) 
-			} getOrElse false)
+			})
 	
 	def paintImpl(g:Graphics2D) {
 		for (c <- clip) {
