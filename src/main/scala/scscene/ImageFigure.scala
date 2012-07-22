@@ -6,9 +6,10 @@ import java.awt.image.{ BufferedImage }
 import scgeom._
 
 case class ImageFigure(
-		clip:Option[Clip], 
-		transform:SgAffineTransform, composite:Composite, 
-		image:BufferedImage 
+	clip:Option[Clip], 
+	transform:SgAffineTransform, 
+	composite:Composite,
+	image:BufferedImage 
 ) extends Figure {
 	// TODO check null ImageObserver
 	// TODO check -1 returns
@@ -16,7 +17,7 @@ case class ImageFigure(
 			val	rect	= SgRectangle(
 					SgSpan(0, image getWidth null),
 					SgSpan(0, image getHeight null))
-			(transform apply rect).normalize inflate 1 
+			(transform apply rect).normalize inset SgRectangleInsets.one.inverse 
 	}
 	
 	final def globalPicked(at:SgPoint):Boolean	= 

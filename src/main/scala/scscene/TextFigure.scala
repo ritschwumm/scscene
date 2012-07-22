@@ -5,10 +5,12 @@ import java.awt.{ Paint, Font, Composite, Shape, Graphics2D }
 import scgeom._
 
 case class TextFigure(
-		clip:Option[Clip], 
-		transform:SgAffineTransform, composite:Composite, 
-		paint:Paint, font:Font, 
-		text:String
+	clip:Option[Clip], 
+	transform:SgAffineTransform, 
+	composite:Composite, 
+	paint:Paint, 
+	font:Font, 
+	text:String
 ) extends Figure {
 	private val layout	= ShapeUtil textLayout (text, font)
 	private val	origin 	= SgPoint fromPoint2D (ShapeUtil textOrigin layout)

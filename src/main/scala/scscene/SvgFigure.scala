@@ -14,9 +14,9 @@ object SvgFigure {
 }
 
 case class SvgFigure(
-		clip:Option[Clip], 
-		transform:SgAffineTransform,
-		svg:SVGDiagram
+	clip:Option[Clip], 
+	transform:SgAffineTransform,
+	svg:SVGDiagram
 ) extends Figure {
 	lazy val globalBounds:SgRectangle = 
 			(transform apply (SgRectangle fromRectangle2D svg.getViewRect)).normalize

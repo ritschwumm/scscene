@@ -5,11 +5,13 @@ import java.awt.{ Paint, Stroke, Composite, Graphics2D, Shape }
 import scgeom._
 
 case class ShapeFigure(
-		clip:Option[Clip], 
-		transform:SgAffineTransform, composite:Composite, 
-		stroke:Option[Stroke], outline:Option[Paint], 
-		fill:Option[Paint], 
-		shape:Shape
+	clip:Option[Clip], 
+	transform:SgAffineTransform, 
+	composite:Composite, 
+	stroke:Option[Stroke],
+	outline:Option[Paint], 
+	fill:Option[Paint], 
+	shape:Shape
 ) extends Figure {
 	// TODO use stroke.getLineWidth - transformed!
 	lazy val globalBounds:SgRectangle = 
