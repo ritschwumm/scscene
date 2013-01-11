@@ -1,6 +1,6 @@
 package scscene
 
-import java.awt.{ Graphics, Graphics2D  }
+import java.awt.{ Graphics, Graphics2D, Rectangle }
 import java.awt.geom.{ Rectangle2D }
 import java.awt.event.{ MouseEvent, KeyEvent }
 import javax.swing.{ JComponent }
@@ -12,24 +12,16 @@ import scgeom._
 final class Canvas extends JComponent {
 	setOpaque(true)
 	         
-	private var figures:Seq[Figure]	= Nil
+	private var figures:Seq[Figure]		= Seq.empty
+	private var repaints:Seq[Rectangle]	= Seq.empty
 	
 	def setFigures(newFigures:Seq[Figure]) {
-		val	changed	= changedFigures(figures, newFigures) map { _.globalBounds }
-		val area	= rectanglesUnion(changed) map { _.toRectangle2D.getBounds }
-		area foreach { repaint(_) }
 		figures	= newFigures
+		// TODO slow
+		repaints foreach repaint
+		repaints		= figures map { _.globalBounds.toRectangle2D.getBounds }
+		repaints foreach repaint
 	}
-	
-	// TODO slow
-	private def changedFigures(oldFigures:Iterable[Figure], newFigures:Iterable[Figure]):Set[Figure] = {
-		val	oldSet	= oldFigures.toSet
-		val newSet	= newFigures.toSet
-		(oldSet union newSet) diff (oldSet intersect newSet)
-	}
-
-	private def rectanglesUnion(bounds:Iterable[SgRectangle]):Option[SgRectangle]	=
-			bounds.nonEmpty guard (bounds reduceLeft { _ union _ })
 	
 	override protected def paintComponent(g1:Graphics) {
 		val	g		= g1.asInstanceOf[Graphics2D]
