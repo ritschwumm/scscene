@@ -20,13 +20,12 @@ case class SvgFigure(
 	svg:SVGDiagram
 ) extends Figure {
 	lazy val globalBounds:SgRectangle = 
-			SgRectangle fromRectangle2D (transform apply svg.getViewRect).getBounds2D inset SgRectangleInsets.one.inverse
-			
+			SgRectangle fromRectangle2D (transform transformShape svg.getViewRect).getBounds2D inset SgRectangleInsets.one.inverse
 	
 	final def globalPicked(at:SgPoint):Boolean	=
 			(clip forall { _ globalPicked at }) &&
 			(transform.inverse exists { t => 
-				!(svg pick (t apply at.toPoint2D, new JVector) isEmpty) 
+				!(svg pick (t transformPoint2D at.toPoint2D, new JVector) isEmpty) 
 			})
 	
 	def paintImpl(g:Graphics2D) {

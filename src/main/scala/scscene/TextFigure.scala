@@ -25,7 +25,7 @@ case class TextFigure(
 	private lazy val globalShape:Shape	= {
 		val otrans	= SgAffineTransform translate -origin
 		val	shape	= layout getOutline otrans.delegate
-		transform apply shape
+		transform transformShape shape
 	}
 	
 	def paintImpl(g:Graphics2D) {

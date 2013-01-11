@@ -25,7 +25,7 @@ case class ShapeFigure(
 			(globalShape contains at.toPoint2D)
 			
 	// TODO private?
-	lazy val globalShape:Shape	= transform apply shape
+	lazy val globalShape:Shape	= transform transformShape shape
 	
 	def paintImpl(g:Graphics2D) {
 		for (c <- clip) {

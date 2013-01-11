@@ -17,7 +17,7 @@ case class ImageFigure(
 			val	rect	= SgRectangle(
 					SgSpan(0, image getWidth	null),
 					SgSpan(0, image getHeight	null))
-			SgRectangle fromRectangle2D (transform apply rect.toRectangle2D).getBounds2D inset SgRectangleInsets.one.inverse 
+			SgRectangle fromRectangle2D (transform transformShape rect.toRectangle2D).getBounds2D inset SgRectangleInsets.one.inverse 
 	}
 	
 	def globalPicked(at:SgPoint):Boolean	= 
