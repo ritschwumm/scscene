@@ -1,9 +1,10 @@
 package scscene
 
 import java.awt.Graphics2D
-
 import java.io.File
 import java.net.URI
+import java.util.{ Vector => JVector }
+
 import com.kitfox.svg._
 
 import scgeom._
@@ -19,12 +20,13 @@ case class SvgFigure(
 	svg:SVGDiagram
 ) extends Figure {
 	lazy val globalBounds:SgRectangle = 
-			(transform apply (SgRectangle fromRectangle2D svg.getViewRect)).normalize
+			SgRectangle fromRectangle2D (transform apply svg.getViewRect).getBounds2D inset SgRectangleInsets.one.inverse
+			
 	
 	final def globalPicked(at:SgPoint):Boolean	=
 			(clip forall { _ globalPicked at }) &&
 			(transform.inverse exists { t => 
-				!(svg pick (t apply at.toPoint2D, new java.util.Vector) isEmpty) 
+				!(svg pick (t apply at.toPoint2D, new JVector) isEmpty) 
 			})
 	
 	def paintImpl(g:Graphics2D) {

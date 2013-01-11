@@ -20,7 +20,7 @@ case class ShapeFigure(
 				case Some(stroke)	=> ShapeUtil strokedBounds (globalShape, stroke)
 			})
 	
-	final def globalPicked(at:SgPoint):Boolean	= 
+	def globalPicked(at:SgPoint):Boolean	= 
 			(clip forall { _ globalPicked at }) &&
 			(globalShape contains at.toPoint2D)
 			

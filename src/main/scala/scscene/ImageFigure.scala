@@ -15,12 +15,12 @@ case class ImageFigure(
 	// TODO check -1 returns
 	def globalBounds:SgRectangle = {
 			val	rect	= SgRectangle(
-					SgSpan(0, image getWidth null),
-					SgSpan(0, image getHeight null))
-			(transform apply rect).normalize inset SgRectangleInsets.one.inverse 
+					SgSpan(0, image getWidth	null),
+					SgSpan(0, image getHeight	null))
+			SgRectangle fromRectangle2D (transform apply rect.toRectangle2D).getBounds2D inset SgRectangleInsets.one.inverse 
 	}
 	
-	final def globalPicked(at:SgPoint):Boolean	= 
+	def globalPicked(at:SgPoint):Boolean	= 
 			(clip forall { _ globalPicked at }) && 
 			(transform.inverse match {
 				case Some(t)	=> 

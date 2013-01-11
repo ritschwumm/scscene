@@ -37,10 +37,4 @@ object ShapeUtil {
 					rect.getY() - value,
 					rect.getWidth() + value*2,
 					rect.getHeight() + value*2)
-					
-	def rounded(rect:Rectangle2D, radius:Double):RoundRectangle2D	= new RoundRectangle2D.Double(
-			rect.getX, rect.getY,
-			rect.getWidth,
-			rect.getHeight,
-			radius, radius) 
 }
